@@ -24,6 +24,7 @@ SEQTable_t *createSeqTable(int n){
     }
     table->data = malloc(sizeof(Element_t) * n); //动态分配足够存储 n 个 Element_t 类型元素的内存空间。
     table->capacity = n;
+    table->pos = 0; //初始化 pos 为 0，表示当前没有元素
     
     if(table->data == NULL){
         printf("createSeqTable  malloc failed!\n");
@@ -78,8 +79,40 @@ int pushbackSeqTable(SEQTable_t *table, Element_t value){
             return -1;
         }
     }
+      // 检查pos是否有效
+    if(table->pos < 0) {
+        printf("Invalid position value.\n");
+        return -1;
+    }
+
+    table->data[table->pos] = value; //插入元素
+    ++table->pos; //指向下一个位置
+    return 0; //成功
 }
+
+int findSeqTable(const SEQTable_t *table, Element_t value){
+    for (int i = 0; i < table->pos; i++) {
+        if (table->data[i] == value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void deleteSeqTable(SEQTable_t *table, Element_t value){
+    //1.查找value在table中的索引号
+    int index = findSeqTable(table, value);
+    if(index == -1){
+        printf("Element %d not found!\n", value);   
+        return -1; //未找到元素
+    }
+    //2.删除这个元素，把[index+1, pos) 搬移到[index, pos-1)，从后一个往前覆盖
+    for(int i = index + 1; i < table->pos; i++){
+        table->data[i - 1] = table->data[i];
+
+    }
+    --table->pos; //指向下一个位置
+    return 0; //成功
 
 };
 void showSeqTable(const SEQTable_t *table){
@@ -89,9 +122,7 @@ void showSeqTable(const SEQTable_t *table){
     }
     printf("\n");
 };
-int findSeqTable(const SEQTable_t *table, Element_t value){
 
-};
 
 //main函数测试
 int main() {
@@ -101,7 +132,10 @@ int main() {
         pushbackSeqTable(table, i+100);
     }
     showSeqTable(table);
-    deleteSeqTable(table, 113);
+    printf("===========\n");
+    pushbackSeqTable(table, 500);
+    showSeqTable(table);
+    //deleteSeqTable(table, 103);
 
     showSeqTable(table);
     releaseSeqTable(table);
