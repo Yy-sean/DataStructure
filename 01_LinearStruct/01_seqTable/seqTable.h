@@ -14,5 +14,9 @@ typedef struct
 
 //函数接口的实现
 SEQTable_t *createSeqTable(int n); //创建顺序表
-void deleteSeqTable(SEQTable_t *pSeqTable); //删除顺序表
-int insertSeqTable(SEQTable_t *pSeqTable, int pos, Element_t data); //插入元素
+void releaseSeqTable(SEQTable_t *table); //释放顺序表
+int pushbackSeqTable(SEQTable_t *table, Element_t value); //在表尾插入元素
+int insertSeqTable(SEQTable_t *table, int index, Element_t value); //在指定位置插入元素
+int findSeqTable(const SEQTable_t *table, Element_t value); //查找元素是否存在
+int deleteSeqTable(SEQTable_t *table, Element_t value); //删除指定元素
+void showSeqTable(const SEQTable_t *table); //显示顺序表内容
