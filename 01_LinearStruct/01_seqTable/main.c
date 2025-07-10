@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 //结构声明
 typedef int Element_t;
@@ -22,16 +24,16 @@ SEQTable_t *createSeqTable(int n){
     }
     table->data = malloc(sizeof(Element_t) * n); //动态分配足够存储 n 个 Element_t 类型元素的内存空间。
     table->capacity = n;
-    return table;
+    
     if(table->data == NULL){
         printf("createSeqTable  malloc failed!\n");
-        free(table);
+        free(table);// 如果 data 分配失败，也要释放 table
         return NULL;
     }
     return table;
 }; 
 
-static void  enlargerSeqTable(SEQTable_t *table){
+static int enlargerSeqTable(SEQTable_t *table){
     //1.再申请一个更大的新空间
     Element_t *tmp = malloc(sizeof(Element_t) * (table->capacity * 2));//由于malloc的时间消耗，通常采用2倍扩容
     if(tmp == NULL){
@@ -69,10 +71,13 @@ int pushbackSeqTable(SEQTable_t *table, Element_t value){
     }
 
     //2.空间已满,再插入就溢出了，就应该扩容
-      //先判断pos是否已经超过了容量，再判断enlargerTable返回值是否为非零值，如果是，则扩容失败
-    if(table->pos >= table->capacity && enlargerTable(table)){
-        return -1; //扩容失败
-    };
+      //先判断pos是否已经超过了容量，再判断enlargerSeqTable返回值是否为非零值，如果是，则扩容失败
+    if(table->pos >= table->capacity) {
+        if (enlargerSeqTable(table) != 0) {
+            printf("Failed to expand the table.\n");
+            return -1;
+        }
+    }
 }
 void deleteSeqTable(SEQTable_t *table, Element_t value){
 
