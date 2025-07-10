@@ -96,9 +96,9 @@ int main() {
         pushbackSeqTable(table, i+100);
     }
     showSeqTable(table);
-
     deleteSeqTable(table, 113);
 
     showSeqTable(table);
+    releaseSeqTable(table);
     return 0;
 }
