@@ -30,6 +30,27 @@ SEQTable_t *createSeqTable(int n){
     }
     return table;
 }; 
+
+static void  enlargerSeqTable(SEQTable_t *table){
+    //1.再申请一个更大的新空间
+    Element_t *tmp = malloc(sizeof(Element_t) * (table->capacity * 2));//由于malloc的时间消耗，通常采用2倍扩容
+    if(tmp == NULL){
+        printf("enlargerSeqTable  malloc failed!\n");
+        return -1; //失败
+    }
+
+    //2.把原来的数据复制到新空间
+    //注意：这里使用了 memcpy 函数来复制内存内容,将 table->data 指向的内存区域中的数据复制到 tmp 指向的内存区域
+    memcpy(tmp, table->data, sizeof(Element_t) * table->capacity);
+
+    //3.释放原来的空间,让表头里的data指针指向新空间
+
+    table->capacity *= 2; //扩容后容量翻倍
+    free(table->data);
+    table->data = tmp; 
+    return 0;
+}
+//释放顺序表
 void releaseSeqTable(SEQTable_t *table){
     if(table){
         if(table->data){
@@ -38,14 +59,30 @@ void releaseSeqTable(SEQTable_t *table){
         free(table); //释放表头结构体内存
     }
 };
-int pushbackSeqTable(SEQTable_t *table, Element_t value){
 
+//尾插法插入元素
+int pushbackSeqTable(SEQTable_t *table, Element_t value){
+    //1.空间根本就不存在
+    if(table == NULL || table->data == NULL){
+        printf("table is NULL or table->data is NULL!\n");
+        return -1; //失败  
+    }
+
+    //2.空间已满,再插入就溢出了，就应该扩容
+      //先判断pos是否已经超过了容量，再判断enlargerTable返回值是否为非零值，如果是，则扩容失败
+    if(table->pos >= table->capacity && enlargerTable(table)){
+        return -1; //扩容失败
+    };
 }
 void deleteSeqTable(SEQTable_t *table, Element_t value){
 
 };
 void showSeqTable(const SEQTable_t *table){
-
+    printf("pos/capacity: %d/%d\n", table->pos, table->capacity);
+    for(int i = 0; i < table->pos; i++){
+        printf("%d ", table->data[i]);
+    }
+    printf("\n");
 };
 int findSeqTable(const SEQTable_t *table, Element_t value){
 
@@ -62,6 +99,6 @@ int main() {
 
     deleteSeqTable(table, 113);
 
-    ShowSeqTable(table);
+    showSeqTable(table);
     return 0;
 }
