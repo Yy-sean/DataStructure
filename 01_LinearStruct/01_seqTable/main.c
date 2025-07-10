@@ -90,6 +90,32 @@ int pushbackSeqTable(SEQTable_t *table, Element_t value){
     return 0; //成功
 }
 
+int insertSeqTable(SEQTable_t *table, int index, Element_t value){
+    //空间有效性
+    if(table == NULL || table->data == NULL){
+        return -1; //失败
+    }
+    if(index < 0 || index > table->pos){
+        printf("Invalid index value.\n");
+        return -1;
+    }
+    //是否扩容
+    if(table->pos >= table->capacity) {
+        if (enlargerSeqTable(table) != 0) {
+            printf("Failed to expand the table.\n");
+            return -1;
+        }
+    }
+    // 搬移数据为新数据腾出位置， 从后往前，向后挪动
+    //[pos-1, index] for循环 --
+    for(int i = table->pos - 1; i >= index; i--) { 
+        table->data[i + 1] = table->data[i];
+    }
+    table->data[index] = value; //插入元素
+    ++table->pos; //指向下一个位置
+    return 0; //成功
+}
+
 int findSeqTable(const SEQTable_t *table, Element_t value){
     for (int i = 0; i < table->pos; i++) {
         if (table->data[i] == value) {
@@ -99,7 +125,7 @@ int findSeqTable(const SEQTable_t *table, Element_t value){
     return -1;
 }
 
-void deleteSeqTable(SEQTable_t *table, Element_t value){
+int deleteSeqTable(SEQTable_t *table, Element_t value){
     //1.查找value在table中的索引号
     int index = findSeqTable(table, value);
     if(index == -1){
@@ -133,10 +159,13 @@ int main() {
     }
     showSeqTable(table);
     printf("===========\n");
-    pushbackSeqTable(table, 500);
+    
+    insertSeqTable(table, 3, 500);
+    //pushbackSeqTable(table, 500);
     showSeqTable(table);
-    //deleteSeqTable(table, 103);
-
+    printf("***********\n");
+    
+    deleteSeqTable(table, 103);
     showSeqTable(table);
     releaseSeqTable(table);
     return 0;
