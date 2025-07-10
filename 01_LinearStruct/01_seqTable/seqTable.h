@@ -12,7 +12,7 @@ typedef struct
     int capacity;    //顺序表的最大容量，一旦超过这个容量，触发扩容操作
 } SEQTable_t;
 
-//函数接口的声明
+//函数接口的实现
 SEQTable_t *createSeqTable(int n); //创建顺序表
 void deleteSeqTable(SEQTable_t *pSeqTable); //删除顺序表
 int insertSeqTable(SEQTable_t *pSeqTable, int pos, Element_t data); //插入元素

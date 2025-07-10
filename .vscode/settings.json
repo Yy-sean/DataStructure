@@ -58,6 +58,7 @@
         "*.excalidraw": "json",
         "*.excalidrawlib": "json",
         "seqtable.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "cstdlib": "c"
     }
 }
