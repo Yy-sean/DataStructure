@@ -19,5 +19,5 @@ LinkList_t *createLinkList(); // 创建链表
 
 int insertLinkListHeader(LinkList_t *link_table, Element_t val);
 int insertLinkListPos(LinkList_t *link_table, int pos, Element_t val);
-
+int deleteLinkListElement(LinkList_t *link_table, Element_t val);
 void showLinkList(LinkList_t *link_table); // 显示链表

@@ -17,7 +17,7 @@ LinkList_t *createLinkList(){
     return link_table;
 }
 
-// 头插法插入链表, 无需再寻找插入位置的前置节点
+// 头插法插入链表, 无需再寻找插入位置的前置节点----倒序链表，最后插入的在最前面
 // 带头节点的链表，头节点就是头插法的前置节点
 int insertLinkListHeader(LinkList_t *link_table, Element_t val){
     node_t *p = &link_table->head;// 指向头节点
@@ -36,9 +36,28 @@ int insertLinkListHeader(LinkList_t *link_table, Element_t val){
     return 0;
 }
 
+int deleteLinkListElement(LinkList_t *link_table, Element_t val){
+    //辅助指针，指向val这个元素的前置节点
+    node_t *p = &link_table->head;
+    while(p){
+        if(p->next->val == val){
+            break;
+        }
+        p = p->next;
+    }if(p->next == NULL){
+        printf("Element %d not found in the list.\n", val);
+        return -1; // 元素未找到
+    }
+    node_t *tmp = p->next;
+    p->next = tmp->next;
+    free(tmp);
+    link_table->count--;
+    return 0;
+}
 void showLinkList(LinkList_t *link_table){
     //辅助指针指向第一个元素，辅助指针不断向后指向，直到遇到NULL
     node_t *p = link_table->head.next;// head.next 本身就是一个指针，应该直接使用它的值
+    printf("LinkList:%d\n", link_table->count);
     while(p!= NULL){
         printf("%d\t", p->val);
         p = p->next;

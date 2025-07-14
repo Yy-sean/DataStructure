@@ -9,6 +9,11 @@ void test01() {
         insertLinkListHeader(link_table, i+100);
     }
     showLinkList(link_table);
+    printf("===========\n" );
+    deleteLinkListElement(link_table, 109);
+    deleteLinkListElement(link_table, 104);
+    showLinkList(link_table);
+    printf("===========\n" );
 
 }
 int main() {
