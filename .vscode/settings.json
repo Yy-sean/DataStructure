@@ -61,6 +61,8 @@
         "stdio.h": "c",
         "cstdlib": "c",
         "stdlib.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "type_traits": "c",
+        "linklist.h": "c"
     }
 }

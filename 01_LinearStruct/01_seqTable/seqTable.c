@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>  // for malloc
-#include<string.h>  // for memset
+#include<string.h>  // for memcpy
 #include "seqTable.h"
 
 //函数接口的实现
