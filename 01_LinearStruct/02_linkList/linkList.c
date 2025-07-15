@@ -54,7 +54,7 @@ int deleteLinkListElement(LinkList_t *link_table, Element_t val){
     link_table->count--;
     return 0;
 }
-void showLinkList(LinkList_t *link_table){
+void showLinkList( const LinkList_t *link_table){
     //辅助指针指向第一个元素，辅助指针不断向后指向，直到遇到NULL
     node_t *p = link_table->head.next;// head.next 本身就是一个指针，应该直接使用它的值
     printf("LinkList:%d\n", link_table->count);
