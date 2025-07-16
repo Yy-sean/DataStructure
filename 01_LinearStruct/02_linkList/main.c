@@ -14,6 +14,9 @@ void test01() {
     deleteLinkListElement(link_table, 104);
     showLinkList(link_table);
     printf("===========\n" );
+    insertLinkListPos(link_table, 2, 105);
+    showLinkList(link_table);
+    printf("***********\n" );
 
 }
 int main() {
