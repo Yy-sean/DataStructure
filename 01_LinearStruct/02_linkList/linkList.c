@@ -38,17 +38,17 @@ int insertLinkListHeader(LinkList_t *link_table, Element_t val){
 
 
 int insertLinkListPos(LinkList_t *link_table, int pos, Element_t val){
-    if(pos <= 0 || pos > link_table->count+1){//+1 是因为允许在链表末尾之后插入新节点
+    if(pos <1 || pos > link_table->count+1){//+1 是因为允许在链表末尾之后插入新节点
         printf("Position out of range.\n");
         return -1; // 位置超出范围
     }
     
-    node_t *p = &link_table->head;
-    int index = -1;// 记录插入位置的前置节点的索引,`index = -1` 的设计强制区分头节点和数据节点，减少歧义。
+    node_t *prev = &link_table->head;
+    int prev_index = 0;// 记录插入位置的前置节点的索引,`index = -1` 的设计强制区分头节点和数据节点，减少歧义。
 
-    while(p->next != NULL && index < pos-1){
-        p = p->next;
-        index++;
+    while(prev->next != NULL && prev_index < pos-1){
+        prev = prev->next;
+        prev_index++;
     }
     
     node_t *new_node = (node_t *)malloc(sizeof(node_t));
@@ -57,8 +57,8 @@ int insertLinkListPos(LinkList_t *link_table, int pos, Element_t val){
         return -1;
     }
     new_node->val = val;
-    new_node->next = p->next;
-    p->next = new_node;
+    new_node->next = prev->next;
+    prev->next = new_node;
     link_table->count++;
     return 0;
 }
