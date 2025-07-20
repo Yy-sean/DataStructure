@@ -17,6 +17,7 @@ void test01() {
     insertLinkListPos(link_table, 2, 105);
     showLinkList(link_table);
     printf("***********\n" );
+    releaseLinkList(link_table);
 
 }
 int main() {

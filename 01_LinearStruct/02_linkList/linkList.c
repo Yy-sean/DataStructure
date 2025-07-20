@@ -90,4 +90,20 @@ void showLinkList( const LinkList_t *link_table){
     }
     printf("\n");
 }
+void releaseLinkList(LinkList_t *link_table){
+    if(link_table){
+        node_t *p = &link_table->head; //守住头节点，一直删除头节点后面的元素
+        node_t *tmp = NULL;
+        while(p->next != NULL){
+            tmp = p->next;
+            p->next = tmp->next;
+            free(tmp);
+            --link_table->count;
+        }
+        printf("LinkTable have %d node!\n", link_table->count);
 
+        // 释放表头
+        free(link_table);
+
+    }
+}
