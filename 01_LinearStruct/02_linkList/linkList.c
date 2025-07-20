@@ -36,9 +36,9 @@ int insertLinkListHeader(LinkList_t *link_table, Element_t val){
     return 0;
 }
 
-
+//pos[1,count+1]
 int insertLinkListPos(LinkList_t *link_table, int pos, Element_t val){
-    if(pos <1 || pos > link_table->count+1){//+1 是因为允许在链表末尾之后插入新节点
+    if(pos < 1 || pos > link_table->count + 1){//+1 是因为允许在链表末尾之后插入新节点
         printf("Position out of range.\n");
         return -1; // 位置超出范围
     }
