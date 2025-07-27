@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "doubleLoopList.h"
+
+void initDLink(DLinkHeader_t *header){
+    header->next = header;
+    header->prev = header;
+    header->val = 0;
+}
+
+static void addDnode(DLinkHeader_t *new_node, DNode_t *prev, DNode_t *next){
+    next->prev = new_node;
+    new_node->next = next;
+    new_node->prev = prev;
+    prev->next = new_node;
+
+}
+
+void insertDLinkHeader(DLinkHeader_t *header, Element_t val){
+    DNode_t *new_node = (DNode_t *)malloc(sizeof(DNode_t));
+    new_node->val = val;
+    /* 
+    *   addDnode(new_node, header, header->next){
+    *       (header->next)->prev = new_node; 
+    *       new_node->next = header->next; 
+    *       new_node->prev = header; 
+    *       header->next = new_node;
+    *   }
+    *   
+    */
+    addDnode(new_node, header, header->next);
+}
+
+void insertDLinkRear(DLinkHeader_t *header, Element_t val){
+    DNode_t *new_node = (DNode_t *)malloc(sizeof(DNode_t));
+    new_node->val = val;
+    /* 
+    *   addDnode(new_node, header->prev, header){
+    *       (header)->prev = new_node; 
+    *       new_node->next = (header); 
+    *       new_node->prev = (header->prev);
+    *       (header->prev)->next = new_node;
+    *   }
+    *   
+    */
+    addDnode(new_node, header->prev, header);
+}
