@@ -45,3 +45,12 @@ void insertDLinkRear(DLinkHeader_t *header, Element_t val){
     */
     addDnode(new_node, header->prev, header);
 }
+void showDLinkList(const DLinkHeader_t *header){
+    DNode_t *pos = header->next;
+    while(pos != header){
+        printf("%d\t ", pos->val);
+        pos = pos->next;
+    }
+    printf("\n");
+}
+
