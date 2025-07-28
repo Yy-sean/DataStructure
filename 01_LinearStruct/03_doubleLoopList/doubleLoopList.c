@@ -54,3 +54,25 @@ void showDLinkList(const DLinkHeader_t *header){
     printf("\n");
 }
 
+static void deleteDnode(DNode_t *prev, DNode_t *next){
+    prev->next = next;
+    next->prev = prev;
+}
+
+
+void deleteDLink(DLinkHeader_t *header, Element_t e){
+    // 1. 找到这个元素，就可以直接删除， 不需要前置节点
+    DNode_t *pos = header->next;
+
+    while(pos != header){
+        if(pos->val == e){
+            deleteDnode(pos->prev, pos->next);
+            free(pos);
+            return;
+        }
+        pos = pos->next;
+    }
+    //2. 找不到
+    printf("Element %d not found in the list.\n", e);
+    
+}

@@ -19,3 +19,6 @@ void insertDLinkRear(DLinkHeader_t *header, Element_t val);
 
 /* 遍历双向循环链表 */
 void showDLinkList(const DLinkHeader_t *header);
+
+/* 删除一个元素 */
+void deleteDLink(DLinkHeader_t *header, Element_t e);
