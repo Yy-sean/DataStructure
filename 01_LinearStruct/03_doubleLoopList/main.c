@@ -13,6 +13,11 @@ void test01(){
     insertDLinkHeader(&stulink, 500);
     deleteDLink(&stulink, 103);
     showDLinkList(&stulink);
+    printf("num: %d\n", stulink.val);
+    //deleteAllDLinkV1(&stulink);
+    //printf("num: %d\n", stulink.val);
+    deleteAllDLinkV2(&stulink);
+    printf("num: %d\n", stulink.val);
 }
 int main(){
     test01();

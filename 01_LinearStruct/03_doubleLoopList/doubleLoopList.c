@@ -29,6 +29,7 @@ void insertDLinkHeader(DLinkHeader_t *header, Element_t val){
     *   
     */
     addDnode(new_node, header, header->next);
+    ++header->val;// 表长度加1
 }
 
 void insertDLinkRear(DLinkHeader_t *header, Element_t val){
@@ -44,6 +45,7 @@ void insertDLinkRear(DLinkHeader_t *header, Element_t val){
     *   
     */
     addDnode(new_node, header->prev, header);
+    ++header->val;// 表长度加1
 }
 void showDLinkList(const DLinkHeader_t *header){
     DNode_t *pos = header->next;
@@ -68,11 +70,38 @@ void deleteDLink(DLinkHeader_t *header, Element_t e){
         if(pos->val == e){
             deleteDnode(pos->prev, pos->next);
             free(pos);
+            --header->val; // 表长度减1
             return;
         }
         pos = pos->next;
     }
     //2. 找不到
-    printf("Element %d not found in the list.\n", e);
+    if(pos == header){
+        printf("Element %d not found in the list.\n", e);
+    }
+}
+
+void deleteAllDLinkV1(DLinkHeader_t *header){
+    if (header == NULL) return;
+    DNode_t *pos = header->next;
+
+    while(pos != header){
+        deleteDnode(pos->prev, pos->next);
+        free(pos);
+        --header->val; // 表长度减1
+        pos = header->next;
+    }
     
+}
+
+void deleteAllDLinkV2(DLinkHeader_t *header){
+    DNode_t *pos = header->next;
+    DNode_t *tmp = NULL;
+    while(pos != header){
+        tmp = pos;
+        deleteDnode(pos->prev, pos->next);
+        pos = pos->next; // 移动到下一个节点
+        free(tmp);
+        --header->val; // 表长度减1
+    }
 }

@@ -22,3 +22,5 @@ void showDLinkList(const DLinkHeader_t *header);
 
 /* 删除一个元素 */
 void deleteDLink(DLinkHeader_t *header, Element_t e);
+void deleteAllDLinkV1(DLinkHeader_t *header);
+void deleteAllDLinkV2(DLinkHeader_t *header);
