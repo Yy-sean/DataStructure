@@ -64,7 +64,8 @@
         "string.h": "c",
         "type_traits": "c",
         "linklist.h": "c",
-        "doublelooplist.h": "c"
+        "doublelooplist.h": "c",
+        "joseph.h": "c"
     },
     "cSpell.words": ["stulink"]
 }
