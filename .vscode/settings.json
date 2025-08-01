@@ -69,7 +69,9 @@
     "linklist.h": "c",
     "doublelooplist.h": "c",
     "joseph.h": "c",
-    "arraystack.h": "c"
+    "arraystack.h": "c",
+    "linkstack.h": "c",
+    "error.h": "c"
   },
   "cSpell.words": [
     "stulink"
