@@ -70,7 +70,8 @@
         "linkstack.h": "c",
         "error.h": "c",
         "arrayqueue.h": "c",
-        "linkqueue.h": "c"
+        "linkqueue.h": "c",
+        "binarytree.h": "c"
     },
     "cSpell.words": ["stulink"]
 }
