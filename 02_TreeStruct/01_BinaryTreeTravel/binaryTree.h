@@ -24,4 +24,5 @@ void preOrderBTree(BinaryTree *tree);
 void inOrderBTree(BinaryTree *tree);
 void postOrderBTree(BinaryTree *tree);
 
+void levelOrderBTree(BinaryTree *tree);
 void visitTreeNode(TreeNode_t *node);
