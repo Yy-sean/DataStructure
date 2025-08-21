@@ -48,6 +48,9 @@ void insertBinaryTree(BinaryTree *tree, TreeNode_t *parent, TreeNode_t *left, Tr
     }
 }
 
+}
+//为了安全，防止内部函数被外部调用，所以将内部函数声明为static，
+//以此隐藏实现细节，只暴露必要的接口给外部使用者。
 static void preOrderNode(TreeNode_t *node){
     if(node == NULL){
         return;
@@ -57,11 +60,6 @@ static void preOrderNode(TreeNode_t *node){
     preOrderNode(node->right);
 }
 
-void preOrderBTree(BinaryTree *tree){
-    if(tree){
-        preOrderNode(tree->root);
-    }
-}
 
 static void inOrderNode(TreeNode_t *node){
     if(node == NULL){
@@ -73,12 +71,6 @@ static void inOrderNode(TreeNode_t *node){
     inOrderNode(node->right);
 }
 
-void inOrderBTree(BinaryTree *tree){
-    if(tree){
-        inOrderNode(tree->root);
-    }
-}
-
 static void postOrderNode(TreeNode_t *node){
     if(node == NULL){
         return;
@@ -87,6 +79,20 @@ static void postOrderNode(TreeNode_t *node){
     postOrderNode(node->left);
     postOrderNode(node->right);
     visitTreeNode(node);
+}
+
+void preOrderBTree(BinaryTree *tree){
+    if(tree){
+        preOrderNode(tree->root);
+    }
+}
+
+
+
+void inOrderBTree(BinaryTree *tree){
+    if(tree){
+        inOrderNode(tree->root);
+    }
 }
 
 void postOrderBTree(BinaryTree *tree){
