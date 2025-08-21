@@ -48,7 +48,7 @@ void insertBinaryTree(BinaryTree *tree, TreeNode_t *parent, TreeNode_t *left, Tr
     }
 }
 
-}
+
 //为了安全，防止内部函数被外部调用，所以将内部函数声明为static，
 //以此隐藏实现细节，只暴露必要的接口给外部使用者。
 static void preOrderNode(TreeNode_t *node){
