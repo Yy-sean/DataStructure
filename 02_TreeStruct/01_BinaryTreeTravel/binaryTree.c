@@ -186,8 +186,10 @@ void preOrderBTreeNoRecur(BinaryTree *tree){
     int top = -1;       // 入栈：stack[++top] = v;
 
     //1. 预激活任务栈，放入第一个任务
-    TreeNode_t *node;
-    stack[++top] = tree->root;
+    TreeNode_t *node = tree->root;
+    if(node){
+        stack[++top] = node;
+    }
     printf("PreOrderBTreeNoRecur: \n");
     while(top != -1){
         //2. 出栈一个任务，激活这个任务
@@ -199,6 +201,27 @@ void preOrderBTreeNoRecur(BinaryTree *tree){
         }
         if(node->left){
             stack[++top] = node->left;
+        }
+    }
+}
+
+/*引入一个栈，以根节点为开始，先整条左边入栈
+ *出栈访问，访问这个节点的右孩子作为先节点，
+ */
+void inOrderBTreeNoRecur(BinaryTree *tree){
+    TreeNode_t *stack[MAX_STACK_SIZE];
+    int top = -1;       // 入栈：stack[++top] = v;
+
+    TreeNode_t *node = tree->root;
+    printf("InOrderBTreeNoRecur: \n");
+    while(top >= 0 || node!= NULL){
+        if(node){
+            stack[++top] = node;
+            node = node->left;
+        } else {
+            node = stack[top--]; // 出栈
+            visitTreeNode(node);
+            node = node->right;
         }
     }
 }
