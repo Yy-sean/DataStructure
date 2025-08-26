@@ -18,11 +18,16 @@ typedef struct
 } BinaryTree;
 
 BinaryTree *createBinaryTree(TreeNode_t *root);
+void releaseBinaryTree(BinaryTree *tree);
 TreeNode_t *createTreeNode(Element_t e);
 void insertBinaryTree(BinaryTree *tree, TreeNode_t *parent, TreeNode_t *left, TreeNode_t *right);
 void preOrderBTree(BinaryTree *tree);
 void inOrderBTree(BinaryTree *tree);
 void postOrderBTree(BinaryTree *tree);
-
+void preOrderBTreeNoRecur(BinaryTree *tree);
+void inOrderBTreeNoRecur(BinaryTree *tree);
+void postOrderBTreeNoRecur(BinaryTree *tree);
 void levelOrderBTree(BinaryTree *tree);
+
 void visitTreeNode(TreeNode_t *node);
+

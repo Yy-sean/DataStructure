@@ -27,13 +27,22 @@ BinaryTree *initTree(){
 int main(){
     BinaryTree *tree = initTree();
     printf("Tree has %d nodes.\n", tree->num);
-    printf("PreOrder: ");
+    
     preOrderBTree(tree);
     printf("\n");
-    printf("InOrder: ");
+
     inOrderBTree(tree);
     printf("\n");
-    printf("PostOrder: ");
+
     postOrderBTree(tree);
+    printf("\n");
+
+    levelOrderBTree(tree);
+    printf("\n");
+    
+    preOrderBTreeNoRecur(tree);
+    printf("\n");
+    
+    releaseBinaryTree(tree);
     return 0;
 }
