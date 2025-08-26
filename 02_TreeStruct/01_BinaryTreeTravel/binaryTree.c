@@ -170,3 +170,35 @@ void levelOrderBTree(BinaryTree *tree){
     }
 
 }
+
+
+/* 递归变为非递归， 引入栈 , 这个栈仅仅在函数的局部使用
+*  引入一个栈， 每激活一个节点， 他的左右任务按照先序的规则保存到记忆栈
+*  先右后左放入栈
+*  出栈， 出一个， 激活一个新任务， 又重复， 先右后左放入栈
+*  栈内没有元素时， 整个遍历就结束
+*
+*/
+
+#define MAX_STACK_SIZE 10
+void preOrderBTreeNoRecur(BinaryTree *tree){
+    TreeNode_t *stack[MAX_STACK_SIZE];
+    int top = -1;       // 入栈：stack[++top] = v;
+
+    //1. 预激活任务栈，放入第一个任务
+    TreeNode_t *node;
+    stack[++top] = tree->root;
+    printf("PreOrderBTreeNoRecur: \n");
+    while(top != -1){
+        //2. 出栈一个任务，激活这个任务
+        node = stack[top--];
+        visitTreeNode(node);
+        //3. 发现新任务，入栈
+        if(node->right){
+            stack[++top] = node->right;
+        }
+        if(node->left){
+            stack[++top] = node->left;
+        }
+    }
+}
