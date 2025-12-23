@@ -222,6 +222,43 @@ void inOrderBTreeNoRecur(BinaryTree *tree){
             node = stack[top--]; // 出栈
             visitTreeNode(node);
             node = node->right;
+            
         }
     }
 }
+
+/* 引入两个栈，第一个栈是辅助栈，第二个栈是输出栈
+ * 先放根到第一个栈，出栈放到第二个栈，激活了该任务，先左后右放入第一个栈
+ * 直到第一个栈没有元素
+ * 输出第二个栈的内容
+ */
+void postOrderBTreeNoRecur(BinaryTree *tree){
+    TreeNode_t *stack1[MAX_STACK_SIZE];
+    TreeNode_t *stack2[MAX_STACK_SIZE];
+    int top1 = -1;       
+    int top2 = -1;       
+
+    printf("PostOrderBTreeNoRecur: \n");
+    if (tree == NULL || tree->root == NULL) {
+        return;
+    }
+    stack1[++top1] = tree->root; // 将根压入第一个栈
+    while(top1 != -1){
+        TreeNode_t *node = stack1[top1--]; // 从第一个栈弹出一个节点
+        stack2[++top2] = node;             // 压入第二个栈      
+        
+        // 先左后右入栈,越早放越往后出栈
+        if(node->left){
+            stack1[++top1] = node->left; 
+        }
+        if(node->right){
+            stack1[++top1] = node->right;
+        }
+    }
+    while(top2 != -1){
+        TreeNode_t *node = stack2[top2--];
+        visitTreeNode(node);
+    }   
+}
+    
+

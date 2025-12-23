@@ -43,6 +43,12 @@ int main(){
     preOrderBTreeNoRecur(tree);
     printf("\n");
     
+    inOrderBTreeNoRecur(tree);
+    printf("\n");
+
+    postOrderBTreeNoRecur(tree);
+    printf("\n");
+    
     releaseBinaryTree(tree);
     return 0;
 }
