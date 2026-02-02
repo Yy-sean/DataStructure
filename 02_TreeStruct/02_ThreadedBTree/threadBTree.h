@@ -24,4 +24,4 @@ void visitTBTNode(TBTNode *node); // 访问节点
 // 中序线索化二叉树
 void inOrderThreading(ThreadedBTree *tree); 
 // 线索化后， 开始二叉树的中序遍历
-void inOrderTravel(ThreadedBTree *tree, void (*visit)(TBTNode *node));
+void inOrderTravel(ThreadedBTree *tree);
