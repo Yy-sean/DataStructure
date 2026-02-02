@@ -6,8 +6,8 @@ typedef struct _node{
     Element_t data;                  // 节点数据
     struct _node *left;            // 左子节点指针
     struct _node *right;            // 右子节点指针
-    int ltag;                        // 左标志，0表示指向左子树，1表示指向前驱
-    int rtag;                        // 右标志，0表示指向右子树，1表示指向后继
+    int lTag;                        // 左标志，0表示指向左子树，1表示指向前驱
+    int rTag;                        // 右标志，0表示指向右子树，1表示指向后继
 } TBTNode;
 
 // 二叉线索树的头

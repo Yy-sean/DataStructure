@@ -2,6 +2,36 @@
 #include <stdlib.h>
 #include "threadBTree.h"
 
+TBTNode *createTBTNode(Element_t e) {
+	TBTNode *node = malloc(sizeof(TBTNode));
+	if (node == NULL) {
+		return NULL;
+	}
+    node->data = e;
+    node->left = node->right = NULL;
+    node->lTag = node->rTag = 0;
+    return node;
+}
+
+ThreadedBTree *createThreadedBTree(TBTNode *root) {
+	ThreadedBTree *tree = malloc(sizeof(ThreadedBTree));
+	if (tree == NULL) {
+		return NULL;
+	}
+	tree->root = root;
+	tree->count = 1;
+
+	return tree;
+}
+
+void visitTBTNode(TBTNode *node) {
+	if (node) {
+		printf("\t%c", node->data);
+	}
+}
+
+
+
 static TBTNode *pre = NULL; // 全局前驱节点指针
 static void inOrdering(TBTNode *node) {
    if (node) {
@@ -12,14 +42,14 @@ static void inOrdering(TBTNode *node) {
 
         // A. 处理左指针 (找前驱) 
         if (node->left == NULL) {
-            node->ltag = 1; // 设置左标志为前驱
+            node->lTag = 1; // 设置左标志为前驱
             node->left = pre; // 前驱节点
         }
 
         // B. 处理右指针 (帮前驱找后继)
         // 关键修复：必须判断 pre != NULL
         if(pre && pre->right == NULL) {
-            pre->rtag = 1; // 设置前驱节点的右标志为后继
+            pre->rTag = 1; // 设置前驱节点的右标志为后继
             pre->right = node; // 当前节点为后继
         }
 
@@ -45,8 +75,38 @@ void inOrderThreading(ThreadedBTree *tree) {
         // 【修复点 2】处理最后一个节点 (烂尾收尾)
         // 此时 pre 指向中序遍历的最后一个节点 (图中的 C)
         if (pre->right == NULL) {
-            pre->rtag = 1;      // 告诉后面的人：到站了，没路了
+            pre->rTag = 1;      // 告诉后面的人：到站了，没路了
             pre->right = NULL;  // 显式封口
         }
     }
 }
+
+/* 1. 一路向左，找到虚线的节点，访问这个节点
+ * 2.  以这个节点为准，一路向右（是虚线）
+ * 3. 一路向右（是实线），把实线指向的节点当做新节点， 重复1
+ */
+void inOrderTravel(ThreadedBTree *tree){
+    TBTNode *node = tree->root;
+    while(node){
+        // 1. 一路向左，找到可以作为线索的节点
+        while(node->lTag == 0){
+            node = node->left;
+        }
+        // 访问节点
+        visitTBTNode(node);
+
+        // 2.  以这个节点为准，一路向右（是虚线）
+        // 只要是线索，就一直顺着线索往后跳
+        while(node->rTag == 1 && node->right){
+            node = node->right;
+            visitTBTNode(node);
+        }
+
+        // 3. 一路向右（是实线），把实线指向的节点当做新节点， 重复1
+        node = node->right;
+    }
+}
+// 总结思路：  “一直往左钻 -> 触底反弹顺线索滑 -> 碰到实线切换右子树 -> 继续往左钻” 的循环
+//          第一步：“钻” —— 找到起点 (Find Start)
+//          第二步：“滑” —— 顺藤摸瓜 (Follow Threads) 
+//          第三步：“跨” —— 切换跑道 (Switch to Right Subtree)
