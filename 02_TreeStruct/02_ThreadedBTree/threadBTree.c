@@ -30,6 +30,24 @@ void visitTBTNode(TBTNode *node) {
 	}
 }
 
+static void freeTBTNode(ThreadedBTree *tree, TBTNode *node) {
+	if (node) {
+		if (node->lTag == 0) {
+			freeTBTNode(tree, node->left);
+		}
+		if (node->rTag == 0) {
+			freeTBTNode(tree, node->right);
+		}
+		free(node);
+		tree->count--;
+	}
+}
+
+void releaseThreadBTree(ThreadedBTree *tree) {
+	freeTBTNode(tree, tree->root);
+	printf("tree->node number: %d\n", tree->count);
+}
+
 
 
 static TBTNode *pre = NULL; // 全局前驱节点指针
