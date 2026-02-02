@@ -48,7 +48,18 @@ void releaseThreadBTree(ThreadedBTree *tree) {
 	printf("tree->node number: %d\n", tree->count);
 }
 
-
+void insertThreadBTree(ThreadedBTree *tree, TBTNode *parent, TBTNode *left, TBTNode *right) {
+	if (tree && parent) {
+		parent->left = left;
+		parent->right = right;
+		if (left) {
+			tree->count++;
+		}
+		if (right) {
+			tree->count++;
+		}
+	}
+}
 
 static TBTNode *pre = NULL; // 全局前驱节点指针
 static void inOrdering(TBTNode *node) {
