@@ -17,6 +17,7 @@ typedef struct{
 } ThreadedBTree;
 
 ThreadedBTree* createThreadedBTree(TBTNode *root);    // 创建空的线索二叉树
+TBTNode* createTBTNode(Element_t e); // 创建线索二叉树节点
 void releaseThreadedBTree(ThreadedBTree *tree); // 释放线索二叉树
 void insertThreadedBTree(ThreadedBTree *tree, TBTNode *parent, TBTNode *left, TBTNode *right); // 插入节点
 void visitTBTNode(TBTNode *node); // 访问节点

@@ -43,22 +43,32 @@ static void freeTBTNode(ThreadedBTree *tree, TBTNode *node) {
 	}
 }
 
-void releaseThreadBTree(ThreadedBTree *tree) {
+void releaseThreadedBTree(ThreadedBTree *tree) {
 	freeTBTNode(tree, tree->root);
 	printf("tree->node number: %d\n", tree->count);
 }
+// 插入节点到线索二叉树
+void insertThreadedBTree(ThreadedBTree *tree, TBTNode *parent, TBTNode *left, TBTNode *right) {
+    if (tree == NULL || parent == NULL) {
+        return;
+    }
 
-void insertThreadBTree(ThreadedBTree *tree, TBTNode *parent, TBTNode *left, TBTNode *right) {
-	if (tree && parent) {
-		parent->left = left;
-		parent->right = right;
-		if (left) {
-			tree->count++;
-		}
-		if (right) {
-			tree->count++;
-		}
-	}
+    parent->left = left;
+    parent->right = right;
+
+    if (left != NULL) {
+        parent->lTag = 0; // 指向左子树
+    } else {
+        parent->lTag = 1; // 指向前驱
+    }
+
+    if (right != NULL) {
+        parent->rTag = 0; // 指向右子树
+    } else {
+        parent->rTag = 1; // 指向后继
+    }
+
+    tree->count++;
 }
 
 static TBTNode *pre = NULL; // 全局前驱节点指针

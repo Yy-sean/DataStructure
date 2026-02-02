@@ -12,13 +12,13 @@ ThreadedBTree *initTree() {
 	TBTNode *nodeH = createTBTNode('H');
 	TBTNode *nodeK = createTBTNode('K');
 
-	ThreadedBTree *tree = createThreadBTree(nodeA);
-	insertThreadBTree(tree, nodeA, nodeB, nodeE);
-	insertThreadBTree(tree, nodeB, NULL, nodeC);
-	insertThreadBTree(tree, nodeE, NULL, nodeF);
-	insertThreadBTree(tree, nodeC, nodeD, NULL);
-	insertThreadBTree(tree, nodeF, nodeG, NULL);
-	insertThreadBTree(tree, nodeG, nodeH, nodeK);
+	ThreadedBTree *tree = createThreadedBTree(nodeA);
+	insertThreadedBTree(tree, nodeA, nodeB, nodeE);
+	insertThreadedBTree(tree, nodeB, NULL, nodeC);
+	insertThreadedBTree(tree, nodeE, NULL, nodeF);
+	insertThreadedBTree(tree, nodeC, nodeD, NULL);
+	insertThreadedBTree(tree, nodeF, nodeG, NULL);
+	insertThreadedBTree(tree, nodeG, nodeH, nodeK);
 
 	return tree;
 }
@@ -32,7 +32,7 @@ int test01() {
 	inOrderTravel(tree1);
 	printf("\n");
 
-	releaseThreadBTree(tree1);
+	releaseThreadedBTree(tree1);
 	return 0;
 }
 
