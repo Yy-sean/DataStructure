@@ -32,6 +32,8 @@ BinaryTree *createBinaryTree(TreeNode_t *root){
 //后序遍历，删除每个节点
 
 static void destroyTreeNode(BinaryTree *tree, TreeNode_t*node){
+    
+    // return 并不是结束整个程序，而是回到了“上一层调用它的地方”
     if(node == NULL){
         return;
     }
