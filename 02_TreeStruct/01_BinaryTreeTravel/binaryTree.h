@@ -28,6 +28,6 @@ void preOrderBTreeNoRecur(BinaryTree *tree);
 void inOrderBTreeNoRecur(BinaryTree *tree);
 void postOrderBTreeNoRecur(BinaryTree *tree);
 void levelOrderBTree(BinaryTree *tree);
-void preOrderBTreeNoRecur(BinaryTree *tree);
+
 void visitTreeNode(TreeNode_t *node);
 

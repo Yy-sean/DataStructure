@@ -234,6 +234,9 @@ void inOrderBTreeNoRecur(BinaryTree *tree){
  * 直到第一个栈没有元素
  * 输出第二个栈的内容
  */
+
+/*Method One*/
+/*
 void postOrderBTreeNoRecur(BinaryTree *tree){
     TreeNode_t *stack1[MAX_STACK_SIZE];
     TreeNode_t *stack2[MAX_STACK_SIZE];
@@ -262,5 +265,35 @@ void postOrderBTreeNoRecur(BinaryTree *tree){
         visitTreeNode(node);
     }   
 }
-    
+*/
+#include "arrayStack.h"
+/*Method Two*/
+void postOrderBTreeNoRecur(BinaryTree *tree){
+    data_t data;
+    printf("PostOrderBTreeNoRecur: ");
+    ArrayStack *stack1 = createArrayStack();
+    ArrayStack *stack2 = createArrayStack();
 
+    pushArrayStack(stack1, tree->root); // 将根压入第一个栈
+    while(popArrayStack(stack1, &data) != -1){
+        
+        pushArrayStack(stack2, data); // 压入第二个栈      
+        
+        // 先左后右入栈,越早放越往后出栈
+        if(data->left){
+            pushArrayStack(stack1, data->left); 
+        }
+        if(data->right){
+            pushArrayStack(stack1, data->right);
+        }
+    }
+    while (popArrayStack(stack2, &data) != -1)
+    {
+        visitTreeNode(data);
+    }
+    
+    printf("\n");
+    releaseArrayStack(stack1);
+    releaseArrayStack(stack2);
+
+}
