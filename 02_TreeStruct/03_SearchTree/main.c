@@ -8,10 +8,13 @@ void test01(){
     }
     printf("====================\n");
     inOrderBSTree(tree);
-
+    printf("height: %d\n", heightNode(tree->root));
     releaseBSTree(tree);
 }
 
+void test02(){
+
+}
 int main(){
     test01();
     return 0;

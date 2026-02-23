@@ -21,3 +21,6 @@ void releaseBSTree(BSTree *tree);
 void insertBSTreeRecur(BSTree *tree, Element_t e);
 void visitBSNode(BSNode *tree);
 void inOrderBSTree(BSTree *tree);
+
+BSNode *searchBSTree(BSTree *tree, Element_t e);
+int heightNode(BSNode *node);

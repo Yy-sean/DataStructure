@@ -125,3 +125,30 @@ void insertBSTreeIterative(BSTree *tree, Element_t e){
     }
     tree->count++;
 }
+
+BSNode *searchBSTree(BSTree *tree, Element_t e){
+    if(tree == NULL) return NULL;
+
+    BSNode *current = tree->root;
+    while(current != NULL){
+        if(e == current->data){
+            return current; // 找到目标节点
+        } else if(e < current->data){
+            current = current->left; // 向左子树继续搜索
+        } else {
+            current = current->right; // 向右子树继续搜索
+        }
+    }
+    return NULL; // 没有找到目标节点
+}
+
+int heightNode(BSNode *node){
+    if(node == NULL) return 0; // 空节点高度为0
+    int leftHeight = heightNode(node->left);
+    int rightHeight = heightNode(node->right);
+    if (leftHeight > rightHeight){
+        return ++leftHeight; // 当前节点高度为左子树高度 + 1
+    } else {
+        return ++rightHeight; // 当前节点高度为右子树高度 + 1
+    }
+}
