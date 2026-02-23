@@ -92,3 +92,36 @@ void inOrderBSTree(BSTree *tree){
         printf("\n");
     }
 }
+// 7. 补充：非递归（迭代）版插入接口 
+// (根据你原代码末尾的残缺片段修复并补全)
+void insertBSTreeIterative(BSTree *tree, Element_t e){
+    if(tree == NULL) return;
+
+    BSNode *newNode = createBSNode(e);
+    if(newNode == NULL) return;
+
+    if(tree->root == NULL){
+        tree->root = newNode;
+        tree->count++;
+        return;
+    }
+
+    BSNode *current = tree->root;
+    BSNode *parent = NULL;
+
+    while(current != NULL){
+        parent = current;
+        if(e < current->data){
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    if(e < parent->data){
+        parent->left = newNode;
+    } else {
+        parent->right = newNode;
+    }
+    tree->count++;
+}
